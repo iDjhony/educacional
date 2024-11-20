@@ -1,5 +1,5 @@
 CREATE TABLE aluno (
-    id int not NULL PRIMARY key,
+    id int not NULL PRIMARY key AUTO_INCREMENT,
     nome VARCHAR(100) not null,
     email VARCHAR(100) not null,
     data_nascimento DATE not null,
