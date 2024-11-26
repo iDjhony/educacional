@@ -3,6 +3,7 @@ package br.grupointegrado.educacional.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,20 +19,27 @@ import br.grupointegrado.educacional.repository.AlunoRepository;
 
 @RestController
 @RequestMapping("/api/aluno")
-public class ClienteController {
+public class AlunoController {
 
     @Autowired
     private AlunoRepository repository;
     
     @GetMapping
-    public List<Aluno>findAll() {
-        return this.repository.findAll();
+    public ResponseEntity<List<Aluno>> findAll() {
+    //    return this.repository.findAll();
+    
+        return ResponseEntity.ok(repository.findAll());
     }
 
     @GetMapping("/{id}")
-    public Aluno findById(@PathVariable Integer id) {
-        return this.repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado"));
+    public ResponseEntity<Aluno> findById(@PathVariable Integer id) {
+        //return this.repository.findById(id)
+        //        .orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado"));
+
+        Aluno aluno = this.repository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado"));
+
+        return ResponseEntity.ok(aluno);
     }
 
     @PostMapping
@@ -59,11 +67,12 @@ public class ClienteController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
         Aluno aluno = this.repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado"));
 
         this.repository.delete(aluno);
+        return ResponseEntity.noContent().build();
     }
 
 }
