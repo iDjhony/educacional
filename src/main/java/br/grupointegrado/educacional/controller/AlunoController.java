@@ -90,7 +90,7 @@ public class AlunoController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{aluno_id/matricula}")
+    @PostMapping("/{aluno_id}/matricula")
     public ResponseEntity<Aluno> addMatricula(@PathVariable Integer aluno_id, @RequestBody Integer turma_id){
         Aluno aluno = this.repository.findById(aluno_id)
         .orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado."));
