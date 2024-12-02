@@ -33,7 +33,8 @@ public class Matricula {
     @JsonIgnoreProperties("matricula")
     private Aluno aluno;
 
-    @OneToMany(mappedBy = "matricula",cascade = CascadeType.ALL, orphanRemoval = true)    @JsonIgnoreProperties("matricula")
+    @OneToMany(mappedBy = "matricula",cascade = CascadeType.ALL, orphanRemoval = true)  
+    @JsonIgnoreProperties("matricula")
     private List<Nota> notas;
 
 

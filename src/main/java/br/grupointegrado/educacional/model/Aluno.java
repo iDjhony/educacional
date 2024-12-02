@@ -1,12 +1,18 @@
 package br.grupointegrado.educacional.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,6 +31,10 @@ public class Aluno {
 
     @Column
     private String matricula;
+
+    @OneToMany(mappedBy = "aluno",cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("aluno")
+    private List<Matricula> matriculas;
 
     @Column
     private LocalDate data_nascimento;
@@ -68,6 +78,21 @@ public class Aluno {
 
     public void setData_nascimento(LocalDate data_nascimento) {
         this.data_nascimento = data_nascimento;
+    }
+
+    public List<Matricula> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(List<Matricula> matriculas) {
+        this.matriculas = matriculas;
+    }
+
+    public void addMatricula(Matricula matricula) {
+        if(this.matriculas == null) {
+            this.matriculas = new ArrayList<>();
+        }
+        this.matriculas.add(matricula);
     }
 
 
